@@ -17,7 +17,7 @@ struct SegTree
 
     SegTree(int N, std::function<Value(Value, Value)> p_compute)
     {
-        alloc.resize(N * 4);
+        alloc.reserve(N * 4);
         compute = p_compute;
     }
 
