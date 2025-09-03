@@ -1,66 +1,75 @@
 #include <bits/stdc++.h>
 
-#ifndef ONLINE_JUDGE
-#include <dbg.h>
-#else
-#define dbg(...) (void)0
-#endif
-
 using namespace std;
 using ll = long long;
 
-// A. Scrambled Scrabble
+#define int ll
+
+// 2045A: Scrambled Scrabble 
 void solve()
 {
-    string s; cin >> s;
-    int v = 0, c = 0, y = 0;
-    int n = 0, g = 0;
-    for (int i = 0; i < s.size(); ++i) {
-        if (s[i] == 'Y')
-            y++;
-        else if (s[i] == 'A' || s[i] == 'E' || s[i] == 'I' || s[i] == 'O' || s[i] == 'U')
-            v++;
-        else
-            c++;
+	string s;
+	cin >> s;
+	int vowels = 0;
+	int consonants = 0;
+	int N = 0;
+	int G = 0;
+	int Y = 0;
+	for (char c: s) {
+		if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') 
+			vowels++;
+		else if (c == 'Y')
+			Y++;
+		else {
+			consonants++;
+			if (c == 'N')
+				N++;
+			else if (c == 'G')
+				G++;
+		}
+	}
 
-        if (s[i] == 'N')
-            n++;
-        else if (s[i] == 'G')
-            g++;
-    }
+	int used_consonants = 0;
 
-    int used_c = 0;
+	// CVC
+	int CVC = min(vowels, consonants / 2);
+	vowels -= CVC;
+	consonants -= 2 * CVC;
+	used_consonants += 2 * CVC;
 
-    // vowels consonants
-    // cvc
-    int cnt = min(v, c/2);
-    v -= cnt;
-    c -= 2*cnt;
-    used_c = cnt*2;
+	// CYC
+	int CYC = min(Y, consonants / 2);
+	Y -= CYC;
+	consonants -= 2 * CYC;
+	used_consonants += 2 * CYC;
 
-    // y consonants
-    // cyc
-    cnt = min(y, c/2);
-    y -= cnt;
-    c -= cnt*2;
-    used_c += cnt*2;
 
-    // vowels y
-    // yvy
-    cnt = min(v, y/2);
-    v -= cnt;
-    y -= cnt*2;
-    used_c += cnt*2;
+	// YVY and CVY and YVC
+	int YVY = min(vowels, (consonants + Y) / 2);
+	vowels -= YVY;
+	int used = 2 * YVY;
+	consonants -= max(0ll, used - Y);
+	Y = max(0ll, Y - used);
 
-    // y y
-    // yyy
-    // only count ys that we have to delete from the string
-    c += y % 3;
+	used_consonants += 2 * YVY;
 
-    // replace single-letter consonants with ng consonants
-    int ng = min(n, g);
-    c = max(0, c - min(used_c, ng));
-    cout << s.size() - v - c << '\n';
+	// YYY
+	int YYY = Y / 3;
+	Y -= 3*YYY;
+	used_consonants += 2 * YYY;
+
+	consonants += Y;
+
+	// use as many N s as consonants as possible
+	// make sure if consonants need to be leftover as many G s are leftover as possible
+	// the amount of N being used is min(used_consonants, N);
+	// the amount of G leftover is min(consonants, G)
+	// pair up used N with leftover G
+	int replacements = min({used_consonants, N, consonants, G});
+
+	//cerr << "DBG: " << used_consonants << ' ' << '\n';
+	ll ans = 3 * (CVC + CYC + YVY + YYY) + replacements;
+	cout << ans << '\n';
 }
 
 int T = 1;
