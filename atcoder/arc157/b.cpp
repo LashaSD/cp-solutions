@@ -39,11 +39,6 @@ int build(string &s, int k) {
     int sub = bridges.size() + 1;
     sort(begin(bridges), end(bridges));
 
-    dbg(s);
-    dbg(k);
-    dbg(sum, sub);
-    dbg(bridges);
-
     int accum = 0;
     for (int i: bridges) {
         accum += i;
