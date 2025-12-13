@@ -1,3 +1,6 @@
+#define _USE_MATH_DEFINES
+#define TEST_PI M_PI
+
 template <typename T>
 struct _V2 {
     T x, y;
