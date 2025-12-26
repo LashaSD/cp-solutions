@@ -108,6 +108,8 @@ void solve()
         }
     }
     matn = 0;
+
+    cout << ans << '\n';
 }
 
 int T = 1;
@@ -122,4 +124,3 @@ int32_t main(void)
 
     return 0;
 }
-
