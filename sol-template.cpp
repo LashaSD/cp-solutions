@@ -1,13 +1,11 @@
 #include <bits/stdc++.h>
 
-#ifndef ONLINE_JUDGE
-#include <dbg.h>
-#else
-#define dbg(...) (void)0
-#endif
-
 using namespace std;
 using ll = long long;
+
+#define int ll
+#define xx first
+#define yy second
 
 void solve()
 {
@@ -20,8 +18,9 @@ int32_t main(void)
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    // cin >> T;
+    cin >> T;
     while(T--)
         solve();
+
     return 0;
 }
