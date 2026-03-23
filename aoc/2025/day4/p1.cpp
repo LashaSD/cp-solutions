@@ -18,6 +18,8 @@ const vector<pair<int, int>> offsets = {
     {1, -1},
 };
 
+// AOC2025: Printing Department
+// day 4 part 1
 signed main()
 {
     vector<string> grid;
