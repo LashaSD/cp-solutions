@@ -3,6 +3,8 @@
 using namespace std;
 using ll = long long;
 
+#define assert(v) do { if (!(v)) { *(int*)0 = 0; } } while (0)
+
 #define int ll
 #define xx first
 #define yy second
